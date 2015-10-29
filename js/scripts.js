@@ -3,10 +3,6 @@ var $fullheight = $('.head').innerHeight(),
     $shrinkheight = $('shrink').innerHeight(),
     $menuhheight = $('main_menu').innerHeight(),
     $minheight = $(window).height() + 10 + $menuhheight + $shrinkheight;
-    
-    whil(true) {
-    	alert('유한아 이거?');
-    }
 
 $(document).ready(function() {
     // add header height as margin to body, set min-height so header can shrink without causing problems
