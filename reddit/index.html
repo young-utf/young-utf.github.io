@@ -8,23 +8,55 @@
 
     <script type="text/javascript">
         (function(b,r,a,n,c,h,_,s,d,k){if(!b[n]||!b[n]._q){for(;s<_.length;)c(h,_[s++]);d=r.createElement(a);d.async=1;d.src="https://cdn.branch.io/branch-v1.8.0.min.js";k=r.getElementsByTagName(a)[0];k.parentNode.insertBefore(d,k);b[n]=h}})(window,document,"script","branch",function(b,r){b[r]=function(){b._q.push([r,arguments])}},{_q:[],_v:1},"addListener applyCode banner closeBanner creditHistory credits data deepview deepviewCta first getCode init link logout redeem referrals removeListener sendSMS setIdentity track validateCode".split(" "), 0);
-        branch.init('195782001607856670');
+        branch.init('195782001607856670', function (err, data) {
+            console.log('branch error => ', err);
+            console.log('branch init data =>', data);
+        });
+
+//        branch.banner({
+//            icon: 'http://cdn.ggumim.co.kr/ggumim/assets/images/thumbLogo.jpg',
+//            title: '집꾸미기',
+//            description: '집을 꾸며보아요 ~~',
+//            openAppButtonText: 'Open',
+//            downloadAppButtonText: 'Download',
+//            sendLinkText: '링크 폰으로 보내기',
+//            phonePreviewText: '+82 010-0000-0000',
+//            showiOS: true,
+//            showAndroid: true,
+//            showDesktop: true,
+//            iframe: true,
+//            forgetHide: true,
+//            position: 'bottom'
+//        }, {});
 
         branch.banner({
             icon: 'http://cdn.ggumim.co.kr/ggumim/assets/images/thumbLogo.jpg',
             title: '집꾸미기',
             description: '당신을 위한 인테리어 전문 앱 집꾸미기를 소개합니다~',
-            openAppButtonText: 'Open',
-            downloadAppButtonText: 'Download',
-            sendLinkText: '링크 폰으로 보내기',
-            phonePreviewText: '+82 010-0000-0000',
-            showiOS: true,
-            showAndroid: true,
-            showDesktop: true,
-            iframe: true,
-            forgetHide: true,
-            position: 'bottom'
+            openAppButtonText: '앱으로 보기',              // Text to show on button if the user has the app installed
+            downloadAppButtonText: '앱 다운로드',      // Text to show on button if the user does not have the app installed
+            sendLinkText: '핸드폰으로 보기',              // Text to show on desktop button to allow users to text themselves the app
+            phonePreviewText: '+44 9999-9999',      // The default phone placeholder is a US format number, localize the placeholder number with a custom placeholder with this option
+            showiOS: true,                          // Should the banner be shown on iOS devices?
+            showAndroid: true,                      // Should the banner be shown on Android devices?
+            showDesktop: true,                      // Should the banner be shown on desktop devices?
+            iframe: true,                           // Show banner in an iframe, recomended to isolate Branch banner CSS
+            disableHide: false,                     // Should the user have the ability to hide the banner? (show's X on left side)
+            forgetHide: true,                      // Should we show the banner after the user closes it? Can be set to true, or an integer to show again after X days
+            position: 'bottom',                        // Sets the position of the banner, options are: 'top' or 'bottom', and the default is 'top'
+            mobileSticky: false,                    // Determines whether the mobile banner will be set `position: fixed;` (sticky) or `position: absolute;`, defaults to false *this property only applies when the banner position is 'top'
+            desktopSticky: true,                    // Determines whether the desktop banner will be set `position: fixed;` (sticky) or `position: absolute;`, defaults to true *this property only applies when the banner position is 'top'
+            customCSS: '.title { color: #F00; }',   // Add your own custom styles to the banner that load last, and are gauranteed to take precedence, even if you leave the banner in an iframe
+            make_new_link: false                    // Should the banner create a new link, even if a link already exists?
         }, {
+            tags: ['version12', 'trial-b'],
+            feature: 'smart_banner',
+            stage: 'shoe_page',
+            data: {
+                '$deeplink_path': 'content/page/12354',
+                deeplink: 'data',
+                username: 'Alex'
+            }
         });
     </script>
 
