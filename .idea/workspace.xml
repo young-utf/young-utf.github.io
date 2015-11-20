@@ -38,11 +38,9 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/reddit/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33693695">
-              <caret line="15" column="10" selection-start-line="15" selection-start-column="10" selection-end-line="29" selection-end-column="17" />
-              <folding>
-                <marker date="1447999385000" expanded="true" signature="1002:1541" placeholder="{&quot;icon&quot;: 'http://cdn.ggumim.co.kr/ggumim/assets/images/thumbLogo.jpg'...}" />
-              </folding>
+            <state vertical-scroll-proportion="0.827027">
+              <caret line="50" column="12" selection-start-line="50" selection-start-column="12" selection-end-line="50" selection-end-column="12" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -628,9 +626,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1447999385000" expanded="true" signature="1002:1541" placeholder="{&quot;icon&quot;: 'http://cdn.ggumim.co.kr/ggumim/assets/images/thumbLogo.jpg'...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -819,11 +815,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/reddit/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33693695">
-          <caret line="15" column="10" selection-start-line="15" selection-start-column="10" selection-end-line="29" selection-end-column="17" />
-          <folding>
-            <marker date="1447999385000" expanded="true" signature="1002:1541" placeholder="{&quot;icon&quot;: 'http://cdn.ggumim.co.kr/ggumim/assets/images/thumbLogo.jpg'...}" />
-          </folding>
+        <state vertical-scroll-proportion="0.827027">
+          <caret line="50" column="12" selection-start-line="50" selection-start-column="12" selection-end-line="50" selection-end-column="12" />
+          <folding />
         </state>
       </provider>
     </entry>
