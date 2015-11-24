@@ -3,12 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <title>applink</title>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script>
+
+        var getParam = function(key){
+            var _parammap = {};
+            document.location.search.replace(/\??(?:([^=]+)=([^&]*)&?)/g, function () {
+                function decode(s) {
+                    return decodeURIComponent(s.split("+").join(" "));
+                }
+
+                _parammap[decode(arguments[1])] = decode(arguments[2]);
+            });
+
+            return _parammap[key];
+        };
+
+        var contentsSeq = getParam("cSeq");
+        var newsSeq = getParam("nSeq");
+        var scrapSeq = getParam("sSeq");
+
+        var uagentLow = navigator.userAgent.toLocaleLowerCase();
+        var chrome25 = uagentLow.search("chrome") > -1 && navigator.appVersion.match(/Chrome\/\d+.\d+/)[0].split("/")[1] > 25;
+        var kitkatWebview = uagentLow.indexOf("naver") != -1 || uagentLow.indexOf("daum") != -1;
+
+        (function (window, undefined) {
+            var ai = {};
+            window.ai = window.ai || ai;
+
+            var uagent = navigator.userAgent.toLocaleLowerCase();
+            if (uagent.search("android") > -1) {
+                ai.os = "android";
+                ai.param = "";
+                if(contentsSeq) ai.param = "?contentSeq="+contentsSeq;
+                if(newsSeq) ai.param = "?newsSeq="+newsSeq;
+                if(scrapSeq) ai.param = "?scrapSeq="+scrapSeq;
+            } else if (uagent.search("iphone") > -1 || uagent.search("ipod") > -1 || uagent.search("ipad") > -1) {
+                ai.os = "ios";
+                ai.param = "";
+                if(contentsSeq) ai.param = "?contentSeq="+contentsSeq;
+                if(newsSeq) ai.param = "?newsSeq="+newsSeq;
+                if(scrapSeq) ai.param = "?scrapSeq="+scrapSeq;
+            }else{
+                ai.os = "etc";
+            }
+
+            //구글 크롬의 경우 intent를 지원함(안드로이드 4.4.0 부터는 웹뷰부터 지원함)
+            var androidUrl;
+            if( chrome25 && !kitkatWebview ){
+                androidUrl = "intent://from_browser" + ai.param + "#Intent;scheme=houseapp;package=com.houseapp.interior;end";
+            }else{
+                androidUrl = "houseapp://from_browser" + ai.param;
+            }
+
+            // 프로토콜이 틀려 앱을 두개로 분리 함
+            var app = {
+                //변수 첫번째에 숫자 들어 가면 안됨 eg. 2bab
+                ypoll: { // 아이폰
+                    base_url: {
+                        android : androidUrl,//앱 콜백주소를 적용
+                        ios : "fbhouse://" + ai.param,
+                        etc : "http://houseapp.co.kr"
+                    },
+                    store: {
+                        android: "market://details?id=com.houseapp.interior", //안드로이드일경우설치주소
+                        ios: "itms-apps://itunes.apple.com/kr/app/id1000571054?mt=8",//아이폰일경우설치주소
+                        etc : "http://houseapp.co.kr"//기타
+                    }
+                }
+            };
+
+            ai.link = function (name) {
+                var link_app = app[name];
+
+                if (!link_app) return {
+                    send: function () {throw "No App exists";}
+                };
+                return {
+                    send: function (params) {
+                        var _app = this.app;
+                        params['apiver'] = _app.apiver;
+
+                        var full_url = _app.base_url[this.os];
+                        var install_block = (function (os) {
+                            return function () {
+                                window.location = _app.store[os];
+                            };
+                        })(this.os);
+
+                        if (this.os == "ios") {
+                            setTimeout(install_block, 1000);
+                            location.href = full_url;
+                        } else if (this.os == "android") {
+                            /*
+                             var iframe = document.createElement('iframe');
+                             iframe.style.visibility = 'hidden';
+                             iframe.src = full_url;
+                             iframe.onload = install_block;
+                             document.body.appendChild(iframe);
+                             */
+                            document.location.href = full_url;
+                        } else if(this.os == "etc") {
+                            window.location = _app.store[this.os];
+                        }
+                    },
+                    app: link_app,
+                    os: ai.os
+                };
+            };
+        }(window));
+
+        $(document).ready(function() {
+            ai.link("ypoll").send({});
+
+            $("img").load(function() {
+                imageMap('event_img',640,100,667,540,747,'ar1');
+                $("#ar1").attr("href", ai.link("ypoll").app.store[ai.os]);
+            });
+        });
+
+        function goStore(){
+            location.href=ai.link("ypoll").app.store[ai.os];
+        }
+    </script>
 </head>
 <body>
-<script type="text/javascript">
-    location.href = 'market://details?id=com.houseapp.interior';
-//    location.href = 'market://details?id=com.osquare.mydearnest';
-    alert('22222');
-</script>
+<button onclick="goStore();">hahagha</button>
 </body>
 </html>
